@@ -2,6 +2,7 @@ class TailwindConstant {
   // Using `any` here will make sure the type is inherited
   // from the actual argument that is passed, since the argument
   // might either be a string or a number.
+  // biome-ignore lint/suspicious/noExplicitAny: As the comment above explains, this is intentional.
   value: any;
 
   // Allows for passing a custom suffix that will be compared
@@ -14,16 +15,14 @@ class TailwindConstant {
   }
 
   util(names, conditions?) {
-    const utils = names.split(" ");
+    const utils = names.split(' ');
     const match = this.suffix || `-${this.value}`;
 
     const validName = utils.find((util) => util.endsWith(match));
-    const conditionsMet = typeof conditions === "undefined" ? true : conditions;
+    const conditionsMet = typeof conditions === 'undefined' ? true : conditions;
 
     if (!validName) {
-      throw new Error(
-        `Tailwind utilities "${names}" don't include "${match}" match.`
-      );
+      throw new Error(`Tailwind utilities "${names}" don't include "${match}" match.`);
     }
 
     return conditionsMet ? names : null;
